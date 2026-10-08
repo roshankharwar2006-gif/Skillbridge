@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}{{ c.title }}{% endblock %}
+{% block content %}
+<p><a href="{{ url_for('courses') }}">&larr; All courses</a></p>
+<h1>{{ c.title }}</h1>
+<p class="lead">{{ c.summary }}</p>
+<div class="bar big"><span id="course-bar"></span></div>
+<p id="course-text" class="meta"></p>
+<div class="lessons">
+{% for l in c.lessons %}
+  <details {% if loop.first %}open{% endif %}>
+    <summary>{{ l.t }}</summary>
+    <p>{{ l.body }}</p>
+    <p class="try"><strong>Try it:</strong> {{ l.tip }}</p>
+    <label class="done"><input type="checkbox" data-lesson="{{ loop.index0 }}"> I finished this lesson</label>
+  </details>
+{% endfor %}
+</div>
+<p>Want to learn more? Visit <a href="{{ c.link[1] }}" target="_blank" rel="noopener">{{ c.link[0] }}</a> (free).</p>
+{% endblock %}
+{% block scripts %}<script>SB.courseInit("{{ c.id }}", {{ c.lessons|length }});</script>{% endblock %}

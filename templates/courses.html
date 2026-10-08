@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Courses{% endblock %}
+{% block content %}
+<h1>Skill courses</h1>
+<p class="lead">Pick a course and click on it to start. Your progress is saved in this browser.</p>
+<div class="course-list">
+{% for c in courses %}
+  <a class="course" href="{{ url_for('course', cid=c.id) }}">
+    <h2>{{ c.title }}</h2>
+    <p>{{ c.summary }}</p>
+    <p class="meta">{{ c.level }}, {{ c.hours }} hours, {{ c.lessons|length }} lessons</p>
+    <div class="bar"><span data-course="{{ c.id }}" data-total="{{ c.lessons|length }}"></span></div>
+  </a>
+{% endfor %}
+</div>
+{% endblock %}
+{% block scripts %}<script>SB.renderBars();</script>{% endblock %}

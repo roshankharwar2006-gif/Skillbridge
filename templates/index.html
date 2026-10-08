@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <div>
+    <h1>Learn digital skills. Build a resume. Get ready for your first interview.</h1>
+    <p class="lead">A free bootcamp for young people who are looking for work. No experience needed. Learn at your own pace, on any phone or computer.</p>
+    <p><a class="btn" href="{{ url_for('courses') }}">Start learning</a>
+       <a class="btn ghost" href="{{ url_for('register') }}">Register for the bootcamp</a></p>
+  </div>
+  <aside class="progress-panel" aria-label="Your progress">
+    <h2>Your job-readiness</h2>
+    <div class="bar big"><span id="overall-bar" style="width:0"></span></div>
+    <p><strong id="overall-pct">0%</strong> of lessons completed</p>
+    <ul class="checks">
+      <li data-done="lessons">Finish your lessons</li>
+      <li data-done="resume" >Build your resume</li>
+      <li data-done="interview">Practise 5 interview questions</li>
+    </ul>
+  </aside>
+</section>
+
+<section class="rows">
+  <h2>What you can do here</h2>
+  <a class="row" href="{{ url_for('courses') }}"><h3>Skill courses</h3><p>{{ courses|length }} short courses, from computer basics to web design. Open a lesson, read it, tick it off.</p></a>
+  <a class="row" href="{{ url_for('resume') }}"><h3>Resume builder</h3><p>Fill in a simple form and see your resume appear. Print it or save it as a PDF.</p></a>
+  <a class="row" href="{{ url_for('interview') }}"><h3>Mock interview</h3><p>Practise real questions with a timer, and see tips on how to answer.</p></a>
+  <a class="row" href="{{ url_for('register') }}"><h3>Register</h3><p>Tell us about yourself and the course you want. Our team will contact you.</p></a>
+</section>
+
+<section class="tips">
+  <h2>Job search tips</h2>
+  <ul>{% for t in tips %}<li>{{ t }}</li>{% endfor %}</ul>
+</section>
+{% endblock %}
+{% block scripts %}<script>SB.renderOverall({{ courses|map(attribute='id')|list|tojson }}, {{ courses|map(attribute='lessons')|map('length')|list|tojson }});</script>{% endblock %}

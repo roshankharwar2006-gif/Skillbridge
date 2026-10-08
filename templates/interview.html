@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Mock Interview{% endblock %}
+{% block content %}
+<h1>Mock interview</h1>
+<p class="lead">Choose a topic. Read the question aloud and answer in 60 seconds. Then check the tip.</p>
+<div class="chips" id="cats">{% for c in cats %}<button class="chip{% if loop.first %} on{% endif %}" data-cat="{{ c }}">{{ c }}</button>{% endfor %}</div>
+<section class="qcard">
+  <p class="count" id="qcount"></p>
+  <p class="question" id="question"></p>
+  <p class="timer"><span id="time">60</span> seconds <button class="btn small ghost" id="tbtn">Start timer</button></p>
+  <p id="tip" class="tip" hidden></p>
+  <p><button class="btn ghost" id="showtip">Show tip</button> <button class="btn" id="next">Next question</button></p>
+</section>
+<p class="meta">Questions practised today: <strong id="practised">0</strong></p>
+{% endblock %}
+{% block scripts %}<script>SB.interviewInit({{ data|safe }});</script>{% endblock %}

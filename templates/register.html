@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Register{% endblock %}
+{% block content %}
+<h1>Register for the bootcamp</h1>
+<p class="lead">It is free. We only use your details to contact you about the bootcamp.</p>
+<form method="post" class="panel narrow">
+  <label>Full name<input name="name" required value="{{ f.get('name','') }}"></label>
+  <div class="two">
+    <label>Age<input name="age" type="number" min="15" max="40" value="{{ f.get('age','') }}"></label>
+    <label>Phone (10 digits)<input name="phone" inputmode="numeric" maxlength="10" required value="{{ f.get('phone','') }}"></label>
+  </div>
+  <label>Email (optional)<input name="email" type="email" value="{{ f.get('email','') }}"></label>
+  <label>Education
+    <select name="education">{% for e in ['10th pass','12th pass','Diploma','Graduate','Other'] %}<option>{{ e }}</option>{% endfor %}</select></label>
+  <label>Course you want to start with
+    <select name="course">{% for c in courses %}<option>{{ c.title }}</option>{% endfor %}</select></label>
+  <button class="btn">Register</button>
+</form>
+{% endblock %}

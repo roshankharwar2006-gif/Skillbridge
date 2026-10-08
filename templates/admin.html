@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Registrations{% endblock %}
+{% block content %}
+<h1>Registered students ({{ rows|length }})</h1>
+<div class="scroll"><table>
+<tr><th>Name</th><th>Age</th><th>Phone</th><th>Education</th><th>Course</th><th>Date</th></tr>
+{% for r in rows %}<tr><td>{{ r.name }}</td><td>{{ r.age }}</td><td>{{ r.phone }}</td><td>{{ r.education }}</td><td>{{ r.course }}</td><td>{{ r.created }}</td></tr>
+{% else %}<tr><td colspan="6">No registrations yet.</td></tr>{% endfor %}
+</table></div>
+{% endblock %}

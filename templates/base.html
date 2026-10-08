@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}SkillBridge{% endblock %} | Digital Skill Bootcamp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="{{ url_for('home') }}">SkillBridge</a>
+  <nav>
+    <a href="{{ url_for('courses') }}">Courses</a>
+    <a href="{{ url_for('resume') }}">Resume Builder</a>
+    <a href="{{ url_for('interview') }}">Mock Interview</a>
+    <a class="btn small" href="{{ url_for('register') }}">Join free</a>
+  </nav>
+</header>
+<main>
+{% with msgs = get_flashed_messages(with_categories=true) %}
+  {% for cat, m in msgs %}<p class="flash {{ cat }}" role="status">{{ m }}</p>{% endfor %}
+{% endwith %}
+{% block content %}{% endblock %}
+</main>
+<footer>
+  <p>SkillBridge: Digital Skill Bootcamp for Unemployed Youth. A Community Engagement Project (CEP).</p>
+</footer>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

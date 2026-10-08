@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Resume Builder{% endblock %}
+{% block content %}
+<h1>Resume builder</h1>
+<p class="lead">Fill in the boxes. Your resume updates on the right. Then click Print and choose "Save as PDF".</p>
+<div class="split">
+  <form id="rform" class="panel" onsubmit="return false">
+    <label>Full name<input name="name" placeholder="Rohit Sharma"></label>
+    <label>Job you want<input name="role" placeholder="Data Entry Operator"></label>
+    <div class="two"><label>Phone<input name="phone" inputmode="numeric" placeholder="9876543210"></label>
+    <label>Email<input name="email" type="email" placeholder="name@gmail.com"></label></div>
+    <label>City<input name="city" placeholder="Virar, Maharashtra"></label>
+    <label>About you (2 lines)<textarea name="summary" rows="3" placeholder="Hard-working fresher with good typing speed and basic knowledge of MS Office."></textarea></label>
+    <label>Education (one per line)<textarea name="education" rows="3" placeholder="12th, Maharashtra Board, 2024, 72%"></textarea></label>
+    <label>Skills (separate with commas)<input name="skills" placeholder="MS Word, Excel, Typing, Communication"></label>
+    <label>Projects or experience (one per line)<textarea name="experience" rows="3" placeholder="Made a monthly budget sheet in Excel"></textarea></label>
+    <button type="button" class="btn" onclick="window.print()">Print / Save as PDF</button>
+    <button type="button" class="btn ghost" onclick="SB.clearResume()">Clear</button>
+  </form>
+  <article id="preview" class="paper" aria-live="polite"></article>
+</div>
+{% endblock %}
+{% block scripts %}<script>SB.resumeInit();</script>{% endblock %}
