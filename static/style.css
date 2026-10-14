@@ -61,3 +61,24 @@ th{background:var(--ink);color:#fff} footer{border-top:2px solid var(--ink);padd
 @media(max-width:760px){.hero,.split,.row{grid-template-columns:1fr}.row{gap:4px}}
 @media print{.top,footer,form,h1,.lead{display:none!important}main{padding:0}.split{display:block}.paper{border:0;box-shadow:0 0 0;padding:0}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
+
+/* ---- Videos ---- */
+.video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;margin-top:8px}
+.video-card{display:block;text-align:left;padding:0;background:var(--white);border:2px solid var(--line);border-radius:8px;overflow:hidden;cursor:pointer;font:inherit;color:var(--ink)}
+.video-card[hidden]{display:none}
+.video-card:hover{border-color:var(--teal)}
+.thumb{position:relative;display:block;aspect-ratio:16/9;background:#000}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.play{position:absolute;inset:0;margin:auto;width:60px;height:60px;border-radius:50%;background:rgba(27,42,65,.85);color:#fff;display:grid;place-items:center;font-size:24px;padding-left:4px;transition:transform .2s,background .2s}
+.video-card:hover .play{background:var(--saffron);color:var(--ink);transform:scale(1.1)}
+.vinfo{display:block;padding:12px 14px}.vinfo strong{display:block;font:600 1rem Sora,sans-serif}.vinfo small{color:var(--muted)}
+.vmodal{position:fixed;inset:0;background:rgba(10,18,30,.9);z-index:100;display:flex;align-items:center;justify-content:center;padding:16px}
+.vmodal[hidden]{display:none}
+.vbox{position:relative;width:min(920px,100%);background:var(--ink);color:#fff;border-radius:10px;overflow:hidden}
+.vframe{aspect-ratio:16/9;background:#000}.vframe iframe{width:100%;height:100%;border:0;display:block}
+.vmeta{display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap;padding:14px 18px}
+.vmeta h2{margin:0 0 2px;font-size:1.1rem}.vmeta .meta{margin:0;color:#c3cedd}
+.vnav{display:flex;gap:8px}.vnav .btn.ghost{color:#fff;border-color:#fff}.vnav .btn.ghost:hover{background:#fff;color:var(--ink)}
+.vnav .btn:disabled{opacity:.4;cursor:not-allowed}
+.vclose{position:absolute;top:8px;right:8px;z-index:2;width:38px;height:38px;border-radius:50%;border:0;background:rgba(0,0,0,.65);color:#fff;font-size:24px;line-height:1;cursor:pointer}
+.vclose:hover{background:var(--saffron);color:var(--ink)}
