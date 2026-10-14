@@ -74,3 +74,14 @@ TIPS = [
     "Check government schemes such as Skill India and the National Career Service (NCS) portal.",
     "Practise your self-introduction until you can say it without reading.",
 ]
+
+# Videos shown on /videos. "id" is the part after v= in a YouTube link
+# (https://www.youtube.com/watch?v=THIS_PART). Add as many as you like.
+VIDEOS = [
+    {"id": "kUMe1FH4CHE", "title": "Learn HTML: Full Tutorial for Beginners", "cat": "Web Basics",
+     "desc": "Build your first web page step by step. No experience needed."},
+    {"id": "OXGznpKZ_sA", "title": "CSS Tutorial: Zero to Hero", "cat": "Web Basics",
+     "desc": "Learn to style your pages with colours, fonts and layouts."},
+    {"id": "Vl0H-qTclOg", "title": "Excel Tutorial for Beginners", "cat": "Office Tools",
+     "desc": "Rows, columns, formulas and charts explained simply."},
+]
