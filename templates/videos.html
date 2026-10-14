@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block title %}Videos{% endblock %}
+{% block content %}
+<h1>Video lessons</h1>
+<p class="lead">Click a video to watch it here. Pause, replay and go full screen anytime.</p>
+
+<div class="chips" role="group" aria-label="Filter videos">
+  <button class="chip on" data-cat="all">All</button>
+  {% for c in cats %}<button class="chip" data-cat="{{ c }}">{{ c }}</button>{% endfor %}
+</div>
+
+<div class="video-grid" id="videoGrid">
+{% for v in videos %}
+  <button class="video-card" data-index="{{ loop.index0 }}" data-cat="{{ v.cat }}" aria-label="Play {{ v.title }}">
+    <span class="thumb">
+      <img src="https://i.ytimg.com/vi/{{ v.id }}/hqdefault.jpg" alt="" loading="lazy">
+      <span class="play" aria-hidden="true">&#9654;</span>
+    </span>
+    <span class="vinfo"><strong>{{ v.title }}</strong><small>{{ v.cat }}</small></span>
+  </button>
+{% endfor %}
+</div>
+
+<div class="vmodal" id="vmodal" role="dialog" aria-modal="true" aria-labelledby="vtitle" hidden>
+  <div class="vbox">
+    <button class="vclose" id="vclose" aria-label="Close video">&times;</button>
+    <div class="vframe"><iframe id="vplayer" title="Video player" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+    <div class="vmeta">
+      <div><h2 id="vtitle"></h2><p id="vdesc" class="meta"></p></div>
+      <div class="vnav">
+        <button class="btn ghost small" id="vprev">&larr; Prev</button>
+        <button class="btn small" id="vnext">Next &rarr;</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+const VIDEOS = {{ videos|tojson }};
+const grid = document.getElementById("videoGrid"), modal = document.getElementById("vmodal"),
+      player = document.getElementById("vplayer");
+let current = 0, lastFocus = null;
+
+function visible() {   // indexes of videos currently shown by the filter
+  return [...grid.querySelectorAll(".video-card:not([hidden])")].map(c => +c.dataset.index);
+}
+function play(i) {
+  const v = VIDEOS[i]; current = i;
+  player.src = "https://www.youtube-nocookie.com/embed/" + v.id + "?autoplay=1&rel=0&modestbranding=1";
+  document.getElementById("vtitle").textContent = v.title;
+  document.getElementById("vdesc").textContent = v.desc || "";
+  const list = visible(), pos = list.indexOf(i);
+  document.getElementById("vprev").disabled = pos <= 0;
+  document.getElementById("vnext").disabled = pos === list.length - 1;
+}
+function openModal(i) {
+  lastFocus = document.activeElement;
+  modal.hidden = false; document.body.style.overflow = "hidden";
+  play(i); document.getElementById("vclose").focus();
+}
+function closeModal() {
+  modal.hidden = true; player.src = ""; document.body.style.overflow = "";
+  if (lastFocus) lastFocus.focus();
+}
+function step(d) { const l = visible(), p = l.indexOf(current) + d; if (l[p] !== undefined) play(l[p]); }
+
+grid.addEventListener("click", e => { const c = e.target.closest(".video-card"); if (c) openModal(+c.dataset.index); });
+document.getElementById("vclose").onclick = closeModal;
+document.getElementById("vprev").onclick = () => step(-1);
+document.getElementById("vnext").onclick = () => step(1);
+modal.addEventListener("click", e => { if (e.target === modal) closeModal(); });
+document.addEventListener("keydown", e => {
+  if (modal.hidden) return;
+  if (e.key === "Escape") closeModal();
+  if (e.key === "ArrowRight") step(1);
+  if (e.key === "ArrowLeft") step(-1);
+});
+document.querySelectorAll(".chips .chip").forEach(ch => ch.addEventListener("click", () => {
+  document.querySelectorAll(".chips .chip").forEach(x => x.classList.toggle("on", x === ch));
+  grid.querySelectorAll(".video-card").forEach(c => c.hidden = ch.dataset.cat !== "all" && c.dataset.cat !== ch.dataset.cat);
+}));
+</script>
+{% endblock %}
