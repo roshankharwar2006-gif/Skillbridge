@@ -1,6 +1,6 @@
 import json, os, sqlite3
 from flask import Flask, render_template, request, redirect, url_for, flash, abort
-from data import COURSES, INTERVIEW, TIPS
+from data import COURSES, INTERVIEW, TIPS, VIDEOS
 
 app = Flask(__name__)
 app.secret_key = "change-this-secret"          # needed for flash messages
@@ -33,6 +33,12 @@ def course(cid):
     if not c:
         abort(404)
     return render_template("course.html", c=c)
+
+
+@app.route("/videos")
+def videos():
+    cats = sorted({v["cat"] for v in VIDEOS})
+    return render_template("videos.html", videos=VIDEOS, cats=cats)
 
 
 @app.route("/resume")
